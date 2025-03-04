@@ -82,6 +82,8 @@ public class DataPrestamo {
 		}
 	}
 
+
+
 	// Getters y Setters
 	public String getPr_codigo() {
 		return Pr_codigo;

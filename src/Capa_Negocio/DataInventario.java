@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.sql.*;
 import Capa_Datos.Conexion;
 
+import javax.swing.*;
+
 public class DataInventario {
     //INVENTARIO;
     private String Iv_codigo;
@@ -71,6 +73,23 @@ public class DataInventario {
         return lista3;//Mostrar lista con articulos obtenidos
         /*Getters y Setters para las consultas por dato*/
     }
+
+    public String pedirarticulo() {
+        Conexion objmod = new Conexion();
+
+        String cad = "UPDATE inventario SET Iv_stk = Iv_stk - 1 WHERE Iv_codigo = '" + this.getIv_codigo() + "'";
+
+        return objmod.Ejecutar(cad);
+    }
+
+    public String devolverArticulo(){
+        Conexion objmod = new Conexion();
+
+        String cad = "UPDATE inventario SET Iv_stk = Iv_stk + 1 WHERE Iv_codigo = '" + this.getIv_codigo() + "'";
+
+        return objmod.Ejecutar(cad);
+    }
+
     public String getIv_codigo() {
         return Iv_codigo;
     }

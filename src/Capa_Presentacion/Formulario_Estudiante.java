@@ -4,6 +4,7 @@ import Capa_Negocio.DataEstudiante;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class Formulario_Estudiante extends javax.swing.JFrame {
@@ -15,6 +16,7 @@ public class Formulario_Estudiante extends javax.swing.JFrame {
         initComponents();
         ListarEstudiante();
         jBGrabar.setEnabled(false);
+        setTitle("Estudiante");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
@@ -247,13 +249,22 @@ public class Formulario_Estudiante extends javax.swing.JFrame {
         }
 
         DataEstudiante objest = new DataEstudiante();
-        objest.setEs_identificacion(Integer.parseInt(this.TFId.getText()));
-        objest.setEs_nombre_completo(this.TFNombreCompleto.getText());
-        objest.setEs_carrera(this.CBCarrera.getSelectedItem().toString());
-        objest.setEs_Email(this.TFEmail.getText());
-        objest.GrabarEstudiante();
-        JOptionPane.showMessageDialog(null, "Articulo grabado con exito");
-        ListarEstudiante();
+
+
+        for(DataEstudiante posibleest : objest.ListaEstudiante()){
+            if (posibleest.getEs_identificacion() == Integer.parseInt(this.TFId.getText())) {
+                JOptionPane.showMessageDialog(null, "El estudiante ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else{
+                objest.setEs_identificacion(Integer.parseInt(this.TFId.getText()));
+                objest.setEs_nombre_completo(this.TFNombreCompleto.getText());
+                objest.setEs_carrera(this.CBCarrera.getSelectedItem().toString());
+                objest.setEs_Email(this.TFEmail.getText());
+                objest.GrabarEstudiante();
+                JOptionPane.showMessageDialog(null, "Estudiante grabado con exito");
+                ListarEstudiante();
+            }
+        }
     }
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {

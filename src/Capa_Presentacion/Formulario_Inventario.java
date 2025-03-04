@@ -13,6 +13,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
      */
     public Formulario_Inventario() {
         initComponents();
+        setTitle("Inventario");
         ListarInventario();
         jBGrabar.setEnabled(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -248,13 +249,22 @@ public class Formulario_Inventario extends javax.swing.JFrame {
         }
 
         DataInventario objinv = new DataInventario();
-        objinv.setIv_codigo(this.TFCodigo.getText());
-        objinv.setIv_nombre(this.TFNombre.getText());
-        objinv.setIv_stk(Integer.parseInt(this.TFCantidad.getText()));
-        objinv.setIv_Estado(this.CBEstado.getSelectedItem().toString());
-        objinv.GrabarInventario();
-        JOptionPane.showMessageDialog(null, "Articulo grabado con exito");
-        ListarInventario();
+
+        for(DataInventario posibleart : objinv.ListaInventario()){
+            if (posibleart.getIv_codigo().equals(this.TFCodigo.getText())) {
+                JOptionPane.showMessageDialog(null, "El articulo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else{
+                objinv.setIv_codigo(this.TFCodigo.getText());
+                objinv.setIv_nombre(this.TFNombre.getText());
+                objinv.setIv_stk(Integer.parseInt(this.TFCantidad.getText()));
+                objinv.setIv_Estado(this.CBEstado.getSelectedItem().toString());
+                objinv.GrabarInventario();
+                JOptionPane.showMessageDialog(null, "Articulo grabado con exito");
+                ListarInventario();
+                break;
+            }
+        }
     }
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {

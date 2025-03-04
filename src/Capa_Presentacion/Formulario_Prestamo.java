@@ -1,5 +1,6 @@
 package Capa_Presentacion;
 
+import Capa_Negocio.DataInventario;
 import Capa_Negocio.DataPrestamo;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
         initComponents();
         ListarPrestamos();
         jBGrabar.setEnabled(false);
+        setTitle("Prestamo");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
@@ -277,14 +279,47 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
             return;
         }
 
-        objpre.setPr_codigo(this.TFCodigoPrestamo.getText());
-        objpre.setPr_salon(this.CBSalon.getSelectedItem().toString());
-        objpre.setPr_hora_prestamo(Time.valueOf(this.TFHora.getText()));
-        objpre.setIv_codigo(this.TFCodigoArticulo.getText());
-        objpre.setEs_identificacion(Integer.parseInt(this.TFIdEstudiante.getText()));
-        objpre.GrabarPrestamo();
-        JOptionPane.showMessageDialog(null, "Prestamo grabado con exito");
-        ListarPrestamos();
+        boolean prestamoExiste = false;
+        for (DataPrestamo posiblepre : objpre.ListaPrestamo()) {
+            if (posiblepre.getPr_codigo().equals(this.TFCodigoPrestamo.getText())) {
+                prestamoExiste = true;
+                break;
+            }
+        }
+        if (prestamoExiste) {
+            JOptionPane.showMessageDialog(null, "El prestamo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        DataInventario objinv = null;
+        for (DataInventario posibleinv : new DataInventario().ListaInventario()) {
+            if (posibleinv.getIv_codigo().equals(this.TFCodigoArticulo.getText())) {
+                objinv = posibleinv;
+                break;
+            }
+        }
+
+        if (objinv == null) {
+            JOptionPane.showMessageDialog(null, "El artículo no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (objinv.getIv_stk() > 0) {
+            objinv.pedirarticulo();
+
+            DataPrestamo nuevoPrestamo = new DataPrestamo();
+            nuevoPrestamo.setPr_codigo(this.TFCodigoPrestamo.getText());
+            nuevoPrestamo.setPr_salon(this.CBSalon.getSelectedItem().toString());
+            nuevoPrestamo.setPr_hora_prestamo(Time.valueOf(this.TFHora.getText()));
+            nuevoPrestamo.setIv_codigo(this.TFCodigoArticulo.getText());
+            nuevoPrestamo.setEs_identificacion(Integer.parseInt(this.TFIdEstudiante.getText()));
+            nuevoPrestamo.GrabarPrestamo();
+
+            JOptionPane.showMessageDialog(null, "Prestamo grabado con éxito");
+            ListarPrestamos();
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay articulos suficientes", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,6 +357,8 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {
         String codigoPrestamo = TFCodigoPrestamo.getText().trim();
+        String codigoArticulo = TFCodigoArticulo.getText().trim();
+
         if (codigoPrestamo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese un codigo valido");
             return;
@@ -342,6 +379,14 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
             return;
         }
 
+        DataInventario objinv = null;
+        for (DataInventario posibleinv : new DataInventario().ListaInventario()) {
+            if (posibleinv.getIv_codigo().equals(this.TFCodigoArticulo.getText())) {
+                objinv = posibleinv;
+                break;
+            }
+        }
+
         int Res = JOptionPane.showConfirmDialog(null,
                 "Estas seguro de eliminar el prestamo: " + codigoPrestamo + "?",
                 "Confirmar Eliminación",
@@ -350,6 +395,7 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
             DataPrestamo objpre = new DataPrestamo();
             objpre.setPr_codigo(this.TFCodigoPrestamo.getText());
             objpre.EliminarPrestamo();
+            objinv.devolverArticulo();
             JOptionPane.showMessageDialog(null, "Prestamo Eliminado");
             ListarPrestamos();
         }
@@ -369,41 +415,6 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
         this.TFHora.setText(jTPrestamo.getValueAt(rec, 2).toString());
         this.TFCodigoArticulo.setText(jTPrestamo.getValueAt(rec, 3).toString());
         this.TFIdEstudiante.setText(jTPrestamo.getValueAt(rec, 4).toString());
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Formulario_Prestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Formulario_Prestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Formulario_Prestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Formulario_Prestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Formulario_Prestamo().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify
