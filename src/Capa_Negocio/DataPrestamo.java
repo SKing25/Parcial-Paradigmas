@@ -60,6 +60,28 @@ public class DataPrestamo {
 		return lista;
 	}
 
+	public boolean existeArticulo(String codigoArticulo) {
+		try {
+			Conexion con = new Conexion();
+			ResultSet rs = con.Listar("SELECT 1 FROM inventario WHERE Iv_codigo = '" + codigoArticulo + "'");
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean existeEstudiante(int idEstudiante) {
+		try {
+			Conexion con = new Conexion();
+			ResultSet rs = con.Listar("SELECT 1 FROM estudiante WHERE Es_identificacion = " + idEstudiante);
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	// Getters y Setters
 	public String getPr_codigo() {
 		return Pr_codigo;
