@@ -61,28 +61,28 @@ public class DataPrestamo {
 	}
 
 	public boolean existeArticulo(String codigoArticulo) {
+		// metodo para saber si saber si existe el articulo que se va a prestar
 		try {
 			Conexion con = new Conexion();
 			ResultSet rs = con.Listar("SELECT 1 FROM inventario WHERE Iv_codigo = '" + codigoArticulo + "'");
-			return rs.next();
+			return rs.next(); //retorna true o false dependiendo si lo encuentra en la tabla o no
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage());
+			return false; //retorna false porq hubo un error en la busqueda
 		}
 	}
 
 	public boolean existeEstudiante(int idEstudiante) {
+		// metodo para saber si existe el estudiante q va a realizar el prestamo
 		try {
 			Conexion con = new Conexion();
 			ResultSet rs = con.Listar("SELECT 1 FROM estudiante WHERE Es_identificacion = " + idEstudiante);
-			return rs.next();
+			return rs.next(); //retorna true o false dependiendo si encuentra en la tabla o no
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+			javax.swing.JOptionPane.showMessageDialog(null, e.getMessage());
+			return false; //retorna false porq hubo un error en la busqueda
 		}
 	}
-
-
 
 	// Getters y Setters
 	public String getPr_codigo() {

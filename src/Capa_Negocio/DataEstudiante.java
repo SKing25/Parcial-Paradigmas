@@ -69,6 +69,7 @@ public class DataEstudiante {
         return lista4;//Mostrar lista con articulos obtenidos
         /*Getters y Setters para las consultas por dato*/
     }
+
     public int getEs_identificacion() {
         return Es_identificacion;
     }

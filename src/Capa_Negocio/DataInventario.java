@@ -75,6 +75,8 @@ public class DataInventario {
     }
 
     public String pedirarticulo() {
+        //metodo para que le reste 1 cuando se pida el articulo (se cree un prestamo)
+
         Conexion objmod = new Conexion();
 
         String cad = "UPDATE inventario SET Iv_stk = Iv_stk - 1 WHERE Iv_codigo = '" + this.getIv_codigo() + "'";
@@ -83,6 +85,8 @@ public class DataInventario {
     }
 
     public String devolverArticulo(){
+        //metodo para que le sume 1 a la cantidad en stock cuando se devuelva el articulo (elimine el prestamo)
+
         Conexion objmod = new Conexion();
 
         String cad = "UPDATE inventario SET Iv_stk = Iv_stk + 1 WHERE Iv_codigo = '" + this.getIv_codigo() + "'";
