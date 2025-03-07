@@ -1,5 +1,6 @@
 package Capa_Presentacion;
 
+import Capa_Negocio.DataEstudiante;
 import Capa_Negocio.DataInventario;
 import Capa_Negocio.DataPrestamo;
 
@@ -23,10 +24,12 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
         ArrayList<DataPrestamo> listaPre = new ArrayList<>(); //creo un arraylist
         listaPre = objpre.ListaPrestamo(); //los datos de la tabla prestamos los meto en el arraylist
         tablaPre.addColumn("Codigo Prestamo"); //pongo el titulo de las columnas de la tabla
-        tablaPre.addColumn("Salon");
-        tablaPre.addColumn("Hora");
-        tablaPre.addColumn("Codigo Articulo");
-        tablaPre.addColumn("Identificacion Estudiante");
+        tablaPre.addColumn("Salon"); // 1
+        tablaPre.addColumn("Hora");  // 2
+        tablaPre.addColumn("Codigo Articulo"); // 3
+        tablaPre.addColumn("Nombre Articulo"); // 4
+        tablaPre.addColumn("Identificacion Estudiante"); // 5
+        tablaPre.addColumn("Nombre Estudiante"); //6
         tablaPre.setRowCount(listaPre.size()); //el numero de filas va a ser el numero de objetos almacenados en la lista
         int i = 0;
         for (DataPrestamo x : listaPre) {
@@ -35,7 +38,34 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
             tablaPre.setValueAt(x.getPr_salon(), i, 1);
             tablaPre.setValueAt(x.getPr_hora_prestamo(), i, 2);
             tablaPre.setValueAt(x.getIv_codigo(), i, 3);
-            tablaPre.setValueAt(x.getEs_identificacion(), i, 4);
+            tablaPre.setValueAt(x.getEs_identificacion(), i, 5);
+
+            DataInventario z = null;
+            for (DataInventario posibleinv : new DataInventario().ListaInventario()) {
+                if(x.existeArticulo(x.getIv_codigo())) {
+                    z = posibleinv;
+                    tablaPre.setValueAt(z.getIv_nombre(), i, 4);
+                    break;
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "No se encontro el articulo", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            DataEstudiante e = null;
+            for (DataEstudiante posibleest : new DataEstudiante().ListaEstudiante()) {
+                if(x.existeEstudiante(x.getEs_identificacion())) {
+                    e = posibleest;
+                    tablaPre.setValueAt(e.getEs_nombre_completo(), i, 6);
+                    break;
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "No se encontro el estudiante", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
             i++;
         }
         this.jTPrestamo.setModel(tablaPre); //le asigno el modelo a la tabla
@@ -133,49 +163,47 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(8, 8, 8)
-                                                .addComponent(CBSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(647, 647, 647))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                .addGap(7, 7, 7))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(jLabel5)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                                                .addComponent(jBNuevo))
-                                                                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(jBGrabar)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jBModificar)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jBEliminar)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jBSalir))
+                                                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addGap(8, 8, 8)
+                                                                .addComponent(CBSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(TFCodigoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(TFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                                .addGap(7, 7, 7))
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(jLabel5)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE))
+                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(TFCodigoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(TFIdEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(39, 39, 39)
-                                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGap(75, 75, 75))))
+                                                                        .addComponent(TFIdEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(TFCodigoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(TFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addGap(56, 56, 56)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 24, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jBNuevo)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBGrabar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBModificar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBEliminar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBSalir)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,22 +226,22 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(TFCodigoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel8))
-                                                .addGap(18, 18, 18)
+                                                .addGap(26, 26, 26)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(TFIdEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel9))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addContainerGap(58, Short.MAX_VALUE)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(34, 34, 34)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(69, 69, 69)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jBNuevo)
                                         .addComponent(jBGrabar)
                                         .addComponent(jBModificar)
                                         .addComponent(jBEliminar)
                                         .addComponent(jBSalir))
-                                .addGap(109, 109, 109))
+                                .addGap(77, 77, 77))
         );
 
         pack();
@@ -221,8 +249,12 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         LimpiarCajasTexto();
-        // opcional para mas delante: q ponga el codigo solo
-        jBGrabar.setEnabled(true); //habilito el boton Grabar
+        if ( this.jTPrestamo.getRowCount()+1 >= 10) this.TFCodigoPrestamo.setText("PR00" + (this.jTPrestamo.getRowCount() +1));
+        else if ( this.jTPrestamo.getRowCount()+1 >= 100) this.TFCodigoPrestamo.setText("PR0" + (this.jTPrestamo.getRowCount() +1));
+        else if ( this.jTPrestamo.getRowCount()+1 >= 1000) this.TFCodigoPrestamo.setText("PR" + (this.jTPrestamo.getRowCount() +1));
+        else this.TFCodigoPrestamo.setText("PR000" + (this.jTPrestamo.getRowCount() + 1));
+        TFCodigoArticulo.setText("IV");
+        jBGrabar.setEnabled(true);
     }
 
     private void jBGrabarActionPerformed(java.awt.event.ActionEvent evt) {

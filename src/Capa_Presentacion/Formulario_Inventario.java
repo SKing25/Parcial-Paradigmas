@@ -9,25 +9,25 @@ import java.util.ArrayList;
 public class Formulario_Inventario extends javax.swing.JFrame {
 
     public Formulario_Inventario() {
-        initComponents(); //pone los componentes tal como se configuro en netbeans
-        ListarInventario(); //llama a la funcion para que llene la tabla con los datos de la tabla inventario
-        jBGrabar.setEnabled(false); //se dehabilita el boton grabar para usarlo despues q se precione el boton "nuevo"
+        initComponents(); //pone los componentes tal como se configuró en netbeans
+        ListarInventario(); //llama a la función para que llene la tabla con los datos de la tabla inventario
+        jBGrabar.setEnabled(false); //se deshabilita el botón grabar para usarlo después que se presione el botón "nuevo"
         setTitle("Inventario"); //le pongo el titulo a la ventana
     }
 
     public void ListarInventario(){
-        DefaultTableModel tablaInv = new DefaultTableModel(); //creo un modelo de tabla para maneja los datos de esta
+        DefaultTableModel tablaInv = new DefaultTableModel(); //creo un modelo de tabla para manejar los datos de esta
         DataInventario objinv = new DataInventario(); //creo un objeto DataInventario
-        ArrayList<DataInventario> listaInv = new ArrayList(); //creo un arraylist
+        ArrayList<DataInventario> listaInv; //creo un arraylist
         listaInv = objinv.ListaInventario(); //los datos de la tabla estudiantes los meto en el arraylist
-        tablaInv.addColumn("Codigo"); //pongo el titulo de las columnas de la tabla
+        tablaInv.addColumn("Codigo"); //pongo el título de las columnas de la tabla
         tablaInv.addColumn("Nombre");
         tablaInv.addColumn("Cantidad");
         tablaInv.addColumn("Estado");
-        tablaInv.setRowCount(listaInv.size()); //el numero de filas va a ser el numero de ojetos almacenados en la lista
+        tablaInv.setRowCount(listaInv.size()); //el número de filas va a ser el número de objetos almacenados en la lista
         int i = 0;
         for(DataInventario x : listaInv){
-            //lleno la tabla con los valores q hay en la lista
+            //lleno la tabla con los valores que hay en la lista
             tablaInv.setValueAt(x.getIv_codigo(), i, 0);
             tablaInv.setValueAt(x.getIv_nombre(), i, 1);
             tablaInv.setValueAt(x.getIv_stk(), i, 2);
@@ -38,7 +38,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
     }
 
     public void LimpiarCajasTexto(){
-        //dejo las cajas de texto vacias
+        //dejo las cajas de texto vacías
         this.TFCodigo.setText("");
         this.TFNombre.setText("");
         this.TFCantidad.setText("");
@@ -122,89 +122,100 @@ public class Formulario_Inventario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jBNuevo)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(CBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                                                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(TFNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(TFCodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addComponent(TFCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(22, 22, 22))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jLabel1)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addGap(9, 9, 9))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                .addGap(7, 7, 7)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(CBEstado, 0, 100, Short.MAX_VALUE)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(TFNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                                                .addComponent(TFCodigo)
+                                                                .addComponent(TFCantidad)))
+                                                .addGap(35, 35, 35))
                                         .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jBNuevo)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jBGrabar)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jBModificar)
-                                                .addGap(18, 18, 18)
+                                                .addGap(12, 12, 12)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
                                                 .addComponent(jBEliminar)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jBSalir)
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                .addComponent(jBSalir))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
+                                                .addGap(78, 78, 78)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel1)
-                                                        .addComponent(TFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(TFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel1))
                                                 .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jLabel2)
                                                         .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel3)
-                                                        .addComponent(TFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(TFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel3))
                                                 .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jLabel4)
-                                                        .addComponent(CBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(42, 42, 42)
+                                                        .addComponent(CBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addContainerGap(43, Short.MAX_VALUE)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(38, 38, 38)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jBNuevo)
                                         .addComponent(jBGrabar)
                                         .addComponent(jBModificar)
                                         .addComponent(jBEliminar)
                                         .addComponent(jBSalir))
-                                .addContainerGap(136, Short.MAX_VALUE))
+                                .addGap(29, 29, 29))
         );
+
+        setBounds(0, 0, 814, 407);
 
         pack();
     }// </editor-fold>
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         LimpiarCajasTexto();
-        // opcional para mas delante: q ponga el codigo solo
+        if ( this.jTInventario.getRowCount()+1 >= 10) this.TFCodigo.setText("IV00" + (this.jTInventario.getRowCount() +1));
+        else if ( this.jTInventario.getRowCount()+1 >= 100) this.TFCodigo.setText("IV0" + (this.jTInventario.getRowCount() +1));
+        else if ( this.jTInventario.getRowCount()+1 >= 1000) this.TFCodigo.setText("IV" + (this.jTInventario.getRowCount() +1));
+        else this.TFCodigo.setText("IV000" + (this.jTInventario.getRowCount() + 1));
         jBGrabar.setEnabled(true); //habilito el boton Grabar
     }
 
     private void jBGrabarActionPerformed(java.awt.event.ActionEvent evt) {
-        String codigo = TFCodigo.getText().trim(); //guardo el codigo sin espacios
+        String codigo = TFCodigo.getText().trim(); //guardo el código sin espacios
         String nombre = TFNombre.getText().trim(); //guardo el nombre sin espacios
         String cantidad = TFCantidad.getText().trim(); //guardo la cantidad sin espacios
 
         if (codigo.isEmpty() || nombre.isEmpty() || cantidad.isEmpty()) {
-            //verifico que el codigo o nombre o la cantidad no esten vacios
+            //verifico que el código o nombre o la cantidad no estén vacíos
             JOptionPane.showMessageDialog(null,"Debe completar todos los campos","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -222,9 +233,9 @@ public class Formulario_Inventario extends javax.swing.JFrame {
 
         boolean articuloExiste = false; //suponemos q el articulo no existe
         for(DataInventario posibleart : objinv.ListaInventario()) {
-            //recorremos la lista biscando un articulo con el mismo codigo q el se quiere crear
+            //recorremos la lista buscando un artículo con el mismo código que se quiere crear
             if (posibleart.getIv_codigo().equals(this.TFCodigo.getText())) {
-                //si encuentra un codigo igual retornamos q si existe un articulo asi
+                //si encuentra un código igual retornamos q si existe un articulo asi
                 articuloExiste = true;
                 break;
             }
@@ -235,7 +246,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
             return;
         }
 
-        //despues de las validaciones le colocamos los datos suministrados en los campos de texto al nuevo articulo
+        //después de las validaciones le colocamos los datos suministrados en los campos de texto al nuevo artículo
         objinv.setIv_codigo(this.TFCodigo.getText());
         objinv.setIv_nombre(this.TFNombre.getText());
         objinv.setIv_stk(Integer.parseInt(this.TFCantidad.getText()));
@@ -247,10 +258,10 @@ public class Formulario_Inventario extends javax.swing.JFrame {
     }
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        String codigo = TFCodigo.getText().trim(); //guardo el codigo sin espacios
+        String codigo = TFCodigo.getText().trim(); //guardo el código sin espacios
 
         if (codigo.isEmpty()) {
-            //verifico si el codigo es vacio
+            //verifico si el código es vacío
             JOptionPane.showMessageDialog(null, "Ingrese un codigo valido");
             return;
         }
@@ -259,10 +270,10 @@ public class Formulario_Inventario extends javax.swing.JFrame {
 
         boolean existe = false; //suponemos q el articulo a modificar no existe
         for (int i = 0; i < model.getRowCount(); i++) {
-            //buscamos en las filas de la tabla en la columna 0 si hay un codigo igual al q se quiere modificar
+            //buscamos en las filas de la tabla en la columna 0 si hay un código igual al q se quiere modificar
             String posibleCodigo = model.getValueAt(i, 0).toString();
             if (posibleCodigo.equals(codigo)) {
-                existe = true; //si se encuentra el codigo significa q el articulo si existe y si se puede modificar
+                existe = true; //si se encuentra el código significa que el artículo si existe y si se puede modificar
                 break;
             }
         }
@@ -273,7 +284,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
             return;
         }
 
-        DataInventario objinv = new DataInventario(); //creo un objeto DataInvetario
+        DataInventario objinv = new DataInventario(); //creo un objeto DataInventario
 
         //le asigno los nuevos valores al articulo
         objinv.setIv_codigo(codigo);
@@ -287,11 +298,11 @@ public class Formulario_Inventario extends javax.swing.JFrame {
     }
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        String codigo = TFCodigo.getText().trim(); //guardo el codigo puesto en el campo de texto sin espacios
+        String codigo = TFCodigo.getText().trim(); //guardo el código puesto en el campo de texto sin espacios
 
         if (codigo.isEmpty()) {
-            //verifico q no este vacio
-            JOptionPane.showMessageDialog(this, "Ingrese un codigo valido");
+            //verifico q no este vacío
+            JOptionPane.showMessageDialog(null, "Ingrese un codigo valido");
             return;
         }
 
@@ -299,7 +310,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
 
         boolean existe = false; //suponemos q no existe el articulo
         for (int i = 0; i < model.getRowCount(); i++) {
-            //recorremos la tabla en busca de un articulo con el codigo q se quiere eliminar
+            //recorremos la tabla en busca de un artículo con el código que se quiere eliminar
             String posibleCodigo = model.getValueAt(i, 0).toString();
             if (posibleCodigo.equals(codigo)) {
                 //si lo encontramos mandamos q si existe (true)
@@ -309,12 +320,12 @@ public class Formulario_Inventario extends javax.swing.JFrame {
         }
 
         if (!existe) {
-            //si no existe el articulo no se puede eliminar
+            //si no existe el artículo no se puede eliminar
             JOptionPane.showMessageDialog(null, "El articulo no existe en el inventario");
             return;
         }
 
-        //se pregunta si esta seguro de eliminar el articulo
+        //se pregunta si está seguro de eliminar el artículo
         int Res = JOptionPane.showConfirmDialog(null,"Estas seguro de eliminar el articulo: " + codigo + "?","Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
         if (Res == JOptionPane.YES_OPTION) {
             //si si esta seguro se elimina
@@ -335,7 +346,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
     }
 
     private void jTInventarioMousePressed(java.awt.event.MouseEvent evt) {
-        //metodo q llena los campos de texto de acuerdo a la fila seleccionada en la tabla
+        //metodo que llena los campos de texto de acuerdo a la fila seleccionada en la tabla
         int rec = this.jTInventario.getSelectedRow();
         this.TFCodigo.setText(jTInventario.getValueAt(rec, 0).toString());
         this.TFNombre.setText(jTInventario.getValueAt(rec, 1).toString());
