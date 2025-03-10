@@ -348,7 +348,7 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
 
         if (codigoPrestamo.isEmpty()) {
             //verificamos q el codigo no este vacio
-            JOptionPane.showMessageDialog(null, "Ingrese un codigo valido");
+            JOptionPane.showMessageDialog(null, "Ingrese un codigo valido", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -366,7 +366,7 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
 
         if (!existe) {
             //si no existe mandar un mensaje para decir q el prestamo no existe
-            JOptionPane.showMessageDialog(null, "El prestamo no existe");
+            JOptionPane.showMessageDialog(null, "El prestamo no existe", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -389,7 +389,7 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
 
         if (codigoPrestamo.isEmpty()) {
             //verificamos q el codigo no este vacio
-            JOptionPane.showMessageDialog(null, "Ingrese un codigo valido");
+            JOptionPane.showMessageDialog(null, "Ingrese un codigo valido", "Error", JOptionPane.YES_NO_OPTION);
             return;
         }
 
@@ -408,7 +408,7 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
 
         if (!existe) {
             //si no lo encuentra mandamos un mensaje diciendo q el prestamo no existe
-            JOptionPane.showMessageDialog(null, "El prestamo no existe");
+            JOptionPane.showMessageDialog(null, "El prestamo no existe", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -439,7 +439,7 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {
         //se pregunta si se quiere salir del programa
-        int r = JOptionPane.showConfirmDialog(null, "Esta seguro?");
+        int r = JOptionPane.showConfirmDialog(null, "Esta seguro?", "Confirmar salir", JOptionPane.YES_NO_OPTION);
         if (r == 0) System.exit(0);
     }
 
@@ -450,7 +450,7 @@ public class Formulario_Prestamo extends javax.swing.JFrame {
         this.CBSalon.setSelectedItem(jTPrestamo.getValueAt(rec, 1).toString());
         this.TFHora.setText(jTPrestamo.getValueAt(rec, 2).toString());
         this.TFCodigoArticulo.setText(jTPrestamo.getValueAt(rec, 3).toString());
-        this.TFIdEstudiante.setText(jTPrestamo.getValueAt(rec, 4).toString());
+        this.TFIdEstudiante.setText(jTPrestamo.getValueAt(rec, 5).toString());
     }
 
     private javax.swing.JComboBox<String> CBSalon;

@@ -1,6 +1,7 @@
 package Capa_Presentacion;
 
 import Capa_Negocio.DataEstudiante;
+import Capa_Negocio.DataPrestamo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -234,8 +235,8 @@ public class Formulario_Estudiante extends javax.swing.JFrame {
             if (posibleest.getEs_identificacion() == Integer.parseInt(this.TFId.getText())) {
                 estudianteExiste = true; //si encuentra un id igual al q se quiere crear retornamos q si existe un estudiante asi (true)
                 break;
+                }
             }
-        }
 
         if (estudianteExiste) {
             JOptionPane.showMessageDialog(null, "Estudiante ya existe", "Error", JOptionPane.ERROR_MESSAGE);
@@ -258,7 +259,7 @@ public class Formulario_Estudiante extends javax.swing.JFrame {
 
         if (id.isEmpty()) {
             //verifico si el id es vacio
-            JOptionPane.showMessageDialog(null, "Ingrese una identificacion valida");
+            JOptionPane.showMessageDialog(null, "Ingrese una identificacion valida", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -276,7 +277,7 @@ public class Formulario_Estudiante extends javax.swing.JFrame {
 
         if (!existe) {
             //en caso de no exista se dice q no existe
-            JOptionPane.showMessageDialog(null, "El estudiante no existe");
+            JOptionPane.showMessageDialog(null, "El estudiante no existe", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -298,7 +299,7 @@ public class Formulario_Estudiante extends javax.swing.JFrame {
 
         if (id.isEmpty()) {
             //verifico q no este vacio
-            JOptionPane.showMessageDialog(null, "Ingrese una identificacion valida");
+            JOptionPane.showMessageDialog(null, "Ingrese una identificacion valida", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -317,7 +318,23 @@ public class Formulario_Estudiante extends javax.swing.JFrame {
 
         if (!existe) {
             //si no existe el estudiante no se puede eliminar
-            JOptionPane.showMessageDialog(null, "El estudiante no existe");
+            JOptionPane.showMessageDialog(null, "El estudiante no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        boolean tieneprestamo = false; //suponemos q el estudiante no hizo ningun prestamo
+        for (DataPrestamo p : new DataPrestamo().ListaPrestamo()){
+            //recorremos la lista de los prestamos buscando al estudiante
+            if (p.getEs_identificacion() == Integer.parseInt(this.TFId.getText())) {
+                // si lo encontramos significa q el estudiante hizo un prestamo
+                tieneprestamo = true;
+                break;
+            }
+        }
+
+        if (tieneprestamo) {
+            // no se puede eliminar un estudiante q haya hecho un prestamo
+            JOptionPane.showMessageDialog(null, "El estudiante esta en un prestamo", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -337,7 +354,7 @@ public class Formulario_Estudiante extends javax.swing.JFrame {
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {
         //se pregunta si se quiere salir del programa
-        int r = JOptionPane.showConfirmDialog(null, "Esta seguro?");
+        int r = JOptionPane.showConfirmDialog(null, "Esta seguro?", "Confirmar salir", JOptionPane.YES_NO_OPTION);
         if (r == 0) System.exit(0);
     }
 

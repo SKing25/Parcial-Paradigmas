@@ -1,6 +1,7 @@
 package Capa_Presentacion;
 
 import Capa_Negocio.DataInventario;
+import Capa_Negocio.DataPrestamo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -210,12 +211,12 @@ public class Formulario_Inventario extends javax.swing.JFrame {
     }
 
     private void jBGrabarActionPerformed(java.awt.event.ActionEvent evt) {
-        String codigo = TFCodigo.getText().trim(); //guardo el código sin espacios
+        String codigo = TFCodigo.getText().trim(); //guardo el codigo sin espacios
         String nombre = TFNombre.getText().trim(); //guardo el nombre sin espacios
         String cantidad = TFCantidad.getText().trim(); //guardo la cantidad sin espacios
 
         if (codigo.isEmpty() || nombre.isEmpty() || cantidad.isEmpty()) {
-            //verifico que el código o nombre o la cantidad no estén vacíos
+            //verifico que el codigo o nombre o la cantidad no esten vacios
             JOptionPane.showMessageDialog(null,"Debe completar todos los campos","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -223,6 +224,12 @@ public class Formulario_Inventario extends javax.swing.JFrame {
         try {
             //intento convertir la cantidad stock en entero
             int cantidadNum = Integer.parseInt(cantidad);
+
+            // Validar que la cantidad no sea negativa
+            if (cantidadNum < 0) {
+                JOptionPane.showMessageDialog(null, "La cantidad no puede ser negativa", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         } catch (NumberFormatException e) {
             //si no es entero lanza un error
             JOptionPane.showMessageDialog(null,"La cantidad debe ser un numero entero","Error", JOptionPane.ERROR_MESSAGE);
@@ -233,9 +240,9 @@ public class Formulario_Inventario extends javax.swing.JFrame {
 
         boolean articuloExiste = false; //suponemos q el articulo no existe
         for(DataInventario posibleart : objinv.ListaInventario()) {
-            //recorremos la lista buscando un artículo con el mismo código que se quiere crear
+            //recorremos la lista biscando un articulo con el mismo codigo q el se quiere crear
             if (posibleart.getIv_codigo().equals(this.TFCodigo.getText())) {
-                //si encuentra un código igual retornamos q si existe un articulo asi
+                //si encuentra un codigo igual retornamos q si existe un articulo asi
                 articuloExiste = true;
                 break;
             }
@@ -246,7 +253,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
             return;
         }
 
-        //después de las validaciones le colocamos los datos suministrados en los campos de texto al nuevo artículo
+        //despues de las validaciones le colocamos los datos suministrados en los campos de texto al nuevo articulo
         objinv.setIv_codigo(this.TFCodigo.getText());
         objinv.setIv_nombre(this.TFNombre.getText());
         objinv.setIv_stk(Integer.parseInt(this.TFCantidad.getText()));
@@ -280,7 +287,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
 
         if (!existe) {
             //en caso de q no exista se dice q no existe
-            JOptionPane.showMessageDialog(null, "El articulo no existe");
+            JOptionPane.showMessageDialog(null, "El articulo no existe", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -302,7 +309,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
 
         if (codigo.isEmpty()) {
             //verifico q no este vacío
-            JOptionPane.showMessageDialog(null, "Ingrese un codigo valido");
+            JOptionPane.showMessageDialog(null, "Ingrese un codigo valido", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -321,7 +328,23 @@ public class Formulario_Inventario extends javax.swing.JFrame {
 
         if (!existe) {
             //si no existe el artículo no se puede eliminar
-            JOptionPane.showMessageDialog(null, "El articulo no existe en el inventario");
+            JOptionPane.showMessageDialog(null, "El articulo no existe en el inventario", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        boolean tieneprestamo = false; //suponemos q el articulo no esta en ningun prestamo
+        for (DataPrestamo p : new DataPrestamo().ListaPrestamo()){
+            //recorremos la lista de los prestamos buscando al articulo
+            if (p.getIv_codigo().equals(this.TFCodigo.getText())) {
+                // si lo encontramos significa q el estudiante hizo un prestamo
+                tieneprestamo = true;
+                break;
+            }
+        }
+
+        if (tieneprestamo) {
+            // no se puede eliminar un articulo q haya hecho un prestamo
+            JOptionPane.showMessageDialog(null, "El articulo esta en un prestamo", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -341,7 +364,7 @@ public class Formulario_Inventario extends javax.swing.JFrame {
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {
         //se pregunta si se quiere salir del programa
-        int r = JOptionPane.showConfirmDialog(null, "Esta seguro?");
+        int r = JOptionPane.showConfirmDialog(null, "Esta seguro?","Confirmar salir", JOptionPane.YES_NO_OPTION);
         if (r == 0) System.exit(0);
     }
 

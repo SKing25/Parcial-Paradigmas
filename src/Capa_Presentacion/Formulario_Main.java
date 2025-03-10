@@ -30,19 +30,15 @@ public class Formulario_Main extends javax.swing.JFrame {
         jLabel1.setText("SISTEMA DE PRESTAMO DE ARTICULOS");
 
         jMInventario.setText("Inventario");
-
         jMiInventario.setText("Inventario");
         jMiInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMiInventarioActionPerformed(evt);
-            }
-        });
+            }});
         jMInventario.add(jMiInventario);
-
         jMenuBar1.add(jMInventario);
 
         jMEstudiantes.setText("Estudiantes");
-
         jMiEstudiantes.setText("Estudiantes");
         jMiEstudiantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,11 +46,9 @@ public class Formulario_Main extends javax.swing.JFrame {
             }
         });
         jMEstudiantes.add(jMiEstudiantes);
-
         jMenuBar1.add(jMEstudiantes);
 
         jMPrestamos.setText("Prestamos");
-
         jMiPrestamos.setText("Prestamos");
         jMiPrestamos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,11 +56,9 @@ public class Formulario_Main extends javax.swing.JFrame {
             }
         });
         jMPrestamos.add(jMiPrestamos);
-
         jMenuBar1.add(jMPrestamos);
 
         jMSalir.setText("Salir");
-
         jMiSalir.setText("Salir");
         jMiSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,7 +66,6 @@ public class Formulario_Main extends javax.swing.JFrame {
             }
         });
         jMSalir.add(jMiSalir);
-
         jMenuBar1.add(jMSalir);
 
         setJMenuBar(jMenuBar1);
@@ -117,7 +108,7 @@ public class Formulario_Main extends javax.swing.JFrame {
     }
 
     private void jMiSalirActionPerformed(java.awt.event.ActionEvent evt) {
-        int r = JOptionPane.showConfirmDialog(null, "Esta seguro?");
+        int r = JOptionPane.showConfirmDialog(null, "Esta seguro?", "Confirmar salir", JOptionPane.YES_NO_OPTION);
         if (r == 0) System.exit(0);
     }
 

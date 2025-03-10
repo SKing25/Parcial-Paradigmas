@@ -39,7 +39,7 @@ public class DataInventario {
     {
         Conexion objmod = new Conexion();/*Crear una instancia de conexion para interactuar con la base de datos*/
         String cad= "update inventario set Iv_nombre='"+this.getIv_nombre()+
-                "',Iv_stk='"+this.getIv_stk()+"',Iv_Estado='"+this.getIv_Estado()+"'";/*Cad carga la consulta de actualizar obteniendo los valores
+                "',Iv_stk='"+this.getIv_stk()+"',Iv_Estado='"+this.getIv_Estado()+"'"+"where Iv_codigo='"+this.getIv_codigo()+"'";/*Cad carga la consulta de actualizar obteniendo los valores
 					del registro*/
         return objmod.Ejecutar(cad); /*Retorna la instancia y se llama al metodo ejecutar*/
     }

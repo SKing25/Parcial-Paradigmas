@@ -35,7 +35,7 @@ public class DataEstudiante {
     {
         Conexion objmod = new Conexion();/*Crear una instancia de conexion para interactuar con la base de datos*/
         String cad= "update estudiante set Es_nombre_completo='"+this.getEs_nombre_completo()+
-                "',Es_carrera='"+this.getEs_carrera()+"',Es_Email='"+this.getEs_Email()+"'";/*Cad carga la consulta de actualizar obteniendo los valores
+                "',Es_carrera='"+this.getEs_carrera()+"',Es_Email='"+this.getEs_Email()+"'"+"where Es_identificacion='"+this.getEs_identificacion()+"'";/*Cad carga la consulta de actualizar obteniendo los valores
 					del registro*/
         return objmod.Ejecutar(cad); /*Retorna la instancia y se llama al metodo ejecutar*/
     }
